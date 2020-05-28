@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>GPO Conversion Results Dashboard</title>
+</head>
+
+
+<body background="img/carousel-walk-the-walk.jpg">
+    <div class="wrapper">
+        <div id="container-fluid">
+            <!-- Bootstrap NavBar -->
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+                <a class="navbar-brand" href="#">
+                    <img src="img/logo.png" width="100" height="30" class="d-inline-block align-top" alt="">
+                    <span class="menu-collapsed text-center allign-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GPO Conversion Analysis Dashboard</span>
+                </a>
+                <div class="container">
+
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown d-sm-block d-md-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dashboard </a>
+                                <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+                                    <a class="dropdown-item" onClick="switchView('Summary Chart')">Summary Chart</a>
+                                    <a class="dropdown-item" onClick="switchView('Summary Data')">Summary Data</a>
+                                    <a class="dropdown-item" onClick="switchView('Conversion  Analysis')">Conversion  Analysis</a>
+                                    <a class="dropdown-item" onClick="switchView('GPO Analysis')">GPO Analysis</a>
+                                    <a class="dropdown-item" onClick="switchView('Category Analysis')">Category Analysis</a>
+                                    <a class="dropdown-item" onClick="switchView('Product Analysis')">Product Analysis</a>
+
+                                </div>
+                            </li>
+
+                            <!-- This menu is hidden in bigger devices with d-sm-none. 
+       The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+                            <li class="nav-item dropdown d-sm-block d-md-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data </a>
+                                <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+                                    <a class="dropdown-item" onClick="exportCrossTab()">Selected Summary</a>
+                                    <a class="dropdown-item" onClick="exportData()">All Data</a>
+                                    <a class="dropdown-item" onClick="DownImg()">Image</a>
+                                    <a class="dropdown-item" onClick="exportToPDF()"> PDF</a>
+
+                                </div>
+                            </li>
+                            <!-- Smaller devices menu END -->
+                        </ul>
+                    </div>
+            </nav>
+            <!-- NavBar END -->
+            <div class="sidebar">
+
+                <!-- Bootstrap row -->
+                <div class="row" id="body-row">
+                    <!-- Sidebar -->
+                    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+                        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                        <!-- Bootstrap List Group -->
+                        <ul class="list-group">
+                            <!-- Separator with title -->
+                            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                                <small>Dashboards</small>
+                            </li>
+                            <!-- /END Separator -->
+                            <!-- Menu with submenu -->
+                            <a onClick="switchView('Summary Chart')" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Summary Chart</span>
+                                </div>
+                            </a>
+                            <a onClick="switchView('Summary Data')" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Summary Data</span>
+                                </div>
+                            </a>
+                            <!-- Separator with title -->
+                            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed ">
+                                <small>Views</small>
+                            </li>
+                            <!-- /END Separator -->
+
+                            <a onClick="switchView('Conversion  Analysis')" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Conversion Analysis</span>
+                                </div>
+                            </a>
+                            <a onClick="switchView('GPO Analysis')" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">GPO Analysis</span>
+                                </div>
+                            </a>
+                            <a onClick="switchView('Category Analysis')" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Category Analysis</span>
+                                </div>
+                            </a>
+                            <a onClick="switchView('Product Analysis')" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Product Analysis</span>
+                                </div>
+                            </a>
+                            <!-- Separator with title -->
+                            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                                <small>Download</small>
+                            </li>
+                            <!-- /END Separator -->
+                            <a onClick="exportCrossTab()" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Selected Summary</span>
+                                </div>
+                            </a>
+                            <a onClick="exportData()" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">All Data </span>
+                                </div>
+                            </a>
+                            <a onClick="exportToPDF()" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">PDF</span>
+                                </div>
+                            </a>
+                            <a onClick="DownImg()" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Image</span>
+                                </div>
+                            </a>
+
+
+                            <!-- Separator with title -->
+                            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                                <small>Help</small>
+                            </li>
+                            <!-- /END Separator -->
+                            <a onClick="help" value="open window" class="bg-dark list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-start align-items-center">
+                                    <span class="menu-collapsed">Help</span>
+                                </div>
+                            </a>
+                    </div>
+
+                    </ul>
+                    <!-- List Group END-->
+
+                    <!-- sidebar-container END -->
+                    <!-- MAIN -->
+
+                    <div class="vizContainer"></div>
+
+                    <!-- Main Col END -->
+                </div>
+            </div>
+            </div>
+            <!-- body-row END -->
+
+            <!-- FOOTER -->
+            <footer id="main-footer" class="bg-dark fixed-bottom">
+                <div class="container">
+                    <div class="col">
+                        <div class="col text-center py-1">
+                            <h20>PROPRIETARY AND CONFIDENTAL, &copy; 2020 BY PREMIER PURCHASING PARTNERS, L.P.</h20>
+                            <button class="btn btn-primary" onclick="window.location.href = 'mailto:_91759@PremierInc.com';">Contact CustomTools</button>
+                            <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#contactModal">Contact CustomTools</button> -->
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- CONTACT MODAL -->
+            <div class="modal fade text-dark" id="contactModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Contact CustomTools</h3>
+                            <h5 class="text-center text-success">
+                                <address?=$ result; ?></h5>
+                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" id="contactModal" name="contactModal">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" minlength="5" class="form-control" placeholder="Enter name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Enter email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" class="form-control" placeholder="Enter message" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" onclick="sendEmail()" class="btn btn-primary btn-block" value="Submit" required>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://Visualdiscovery.premierinc.com/javascripts/api/tableau_v8.debug.js"></script>
+        <script type="text/javascript" src='Main.js'></script>
+        <script type="text/javascript" src="Export.js"></script>
+        <script type="text/javascript" src="contact.js"></script>
+
+        <script>
+            // Get the current year for the copyright
+            $('#year').text(new Date().getFullYear());
+        </script>
+
+
+
+
+</body>
+
+
+</html>
